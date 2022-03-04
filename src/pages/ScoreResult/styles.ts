@@ -12,7 +12,7 @@ export const Content = styled.div`
   }
 `;
 
-export const CartHeader = styled.div`
+export const CardHeader = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;

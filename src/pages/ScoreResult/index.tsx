@@ -16,7 +16,7 @@ import {
 import {
   Content,
   Logo,
-  CartHeader,
+  CardHeader,
   TitleWrapper,
   CardTitle,
   CardSubtitle,
@@ -53,7 +53,7 @@ export function ScoreResult() {
         </Title>
 
         <Card id="score-result-card">
-          <CartHeader>
+          <CardHeader>
             <Logo src={"./src/assets/images/OriginIcon--circle.png"} />
             <ProgressBar
               bgColor={scoreValues.bgcolor}
@@ -64,7 +64,7 @@ export function ScoreResult() {
               <CardTitle>{scoreValues.cardTitle}</CardTitle>
               <CardSubtitle>{scoreValues.cardSubtitle}</CardSubtitle>
             </TitleWrapper>
-          </CartHeader>
+          </CardHeader>
 
           <ButtonContainer>
             <Button onClick={handleReturn}>Return</Button>
