@@ -56,6 +56,7 @@ export const CardSubtitle = styled.div`
 export const ButtonContainer = styled.div`
   display: flex;
   margin: auto;
+  justify-content: center;
 `;
 
 export const Button = styled.button`
@@ -118,5 +119,9 @@ export const Input = styled.div`
 
     background: transparent url("./src/assets/images/DolarIcon--medium.png")
       no-repeat 13px center;
+  }
+
+  p {
+    color: red;
   }
 `;

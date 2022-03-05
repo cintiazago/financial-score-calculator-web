@@ -1,5 +1,7 @@
-import { HtmlHTMLAttributes, useEffect, useState } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+
 import { ScoreStatuses } from "../../types/score";
 
 import Card from "../Card";
@@ -22,28 +24,10 @@ const MONTHS = 12;
 const HEALTHY_LIMIT_PERCENTAGE = 25;
 const MEDIUM_LIMIT_PERCENTEGE = 75;
 
-export function FinancialDataForm() {
+export const FinancialDataForm = () => {
   const navigate = useNavigate();
-  const [annualIncome, setAnnualIncome] = useState<number>(0);
-  const [monthlyCosts, setMonthlyCosts] = useState<number>(0);
-  const [score, setScore] = useState("");
 
-  const handleContinueToGetScore = () => {
-    navigate("result", { state: { score: score } });
-  };
-
-  const handleSetAnnualIncome = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setAnnualIncome(parseFloat(e.target.value));
-  };
-
-  const handlesetMonthlyCosts = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setMonthlyCosts(parseFloat(e.target.value));
-  };
-
-  useEffect(() => {
-    if (!annualIncome) setAnnualIncome(0);
-    if (!monthlyCosts) setMonthlyCosts(0);
-
+  const getScoreHealthness = (annualIncome: number, monthlyCosts: number) => {
     const annualIncomeNet =
       annualIncome - annualIncome * (YEARLY_TAXES_PERCENTAGE / 100);
 
@@ -53,18 +37,35 @@ export function FinancialDataForm() {
       (annualCosts / annualIncomeNet) * 100;
 
     if (annualCostsPercentageOverIncome <= HEALTHY_LIMIT_PERCENTAGE) {
-      setScore(ScoreStatuses.HEALTHY);
+      return ScoreStatuses.HEALTHY;
     } else if (
       annualCostsPercentageOverIncome > HEALTHY_LIMIT_PERCENTAGE &&
       annualCostsPercentageOverIncome <= MEDIUM_LIMIT_PERCENTEGE
     ) {
-      setScore(ScoreStatuses.MEDIUM);
+      return ScoreStatuses.MEDIUM;
     } else if (annualCostsPercentageOverIncome > MEDIUM_LIMIT_PERCENTEGE) {
-      setScore(ScoreStatuses.LOW);
+      return ScoreStatuses.LOW;
     } else {
-      setScore(ScoreStatuses.UNKNOWN);
+      return ScoreStatuses.UNKNOWN;
     }
-  }, [annualIncome, monthlyCosts]);
+  };
+
+  const validationSchema = Yup.object({
+    annualIncome: Yup.number().positive().integer().required(),
+    monthlyCosts: Yup.number().positive().integer().required(),
+  });
+
+  const initialValues = {
+    annualIncome: 0,
+    monthlyCosts: 0,
+  };
+
+  const onSubmit = (values: any) => {
+    const score = getScoreHealthness(values.annualIncome, values.monthlyCosts);
+    navigate("/result", { state: { score: score } });
+  };
+
+  const renderError = (message: string) => <p>{message}</p>;
 
   return (
     <Container>
@@ -83,30 +84,35 @@ export function FinancialDataForm() {
           </TitleWrapper>
         </Header>
 
-        <Content>
-          <Input>
-            <label>Annual income</label>
-            <input
-              type="number"
-              value={annualIncome}
-              onChange={handleSetAnnualIncome}
-            />
-          </Input>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={async (values, { resetForm }) => {
+            await onSubmit(values);
+            resetForm();
+          }}
+        >
+          <Form>
+            <Content>
+              <Input>
+                <label htmlFor="annualIncome">Annual Income</label>
+                <Field name="annualIncome" type="number" />
+                <ErrorMessage name="annualIncome" render={renderError} />
+              </Input>
 
-          <Input>
-            <label>Monthly Costs</label>
-            <input
-              type="number"
-              value={monthlyCosts}
-              onChange={handlesetMonthlyCosts}
-            />
-          </Input>
-        </Content>
+              <Input>
+                <label htmlFor="monthlyCosts">Monthly Costs</label>
+                <Field name="monthlyCosts" type="number" />
+                <ErrorMessage name="monthlyCosts" render={renderError} />
+              </Input>
+            </Content>
 
-        <ButtonContainer>
-          <Button onClick={handleContinueToGetScore}>Continue</Button>
-        </ButtonContainer>
+            <ButtonContainer>
+              <Button type="submit">Continue</Button>
+            </ButtonContainer>
+          </Form>
+        </Formik>
       </Card>
     </Container>
   );
-}
+};
