@@ -3,7 +3,7 @@ import { Container, Disclaimer } from "./styles";
 
 export function PageFooter() {
   return (
-    <Container>
+    <Container data-testid="page-footer-container">
       <FiLock size={"24px"} color={"#708797"} />
       <Disclaimer>
         Your financial information is encrypted and secure. We'll never share or
