@@ -24,6 +24,11 @@ const MONTHS = 12;
 const HEALTHY_LIMIT_PERCENTAGE = 25;
 const MEDIUM_LIMIT_PERCENTEGE = 75;
 
+type FormValues = {
+  annualIncome: number;
+  monthlyCosts: number;
+};
+
 export const FinancialDataForm = () => {
   const navigate = useNavigate();
 
@@ -60,7 +65,7 @@ export const FinancialDataForm = () => {
     monthlyCosts: 0,
   };
 
-  const onSubmit = (values: any) => {
+  const handleSubmit = (values: FormValues) => {
     const score = getScoreHealthness(values.annualIncome, values.monthlyCosts);
     navigate("/result", { state: { score: score } });
   };
@@ -68,7 +73,7 @@ export const FinancialDataForm = () => {
   const renderError = (message: string) => <p>{message}</p>;
 
   return (
-    <Container>
+    <Container data-testid="financial-data-form">
       <Title>
         <h1>
           Let's find out your <span>financial wellness score.</span>
@@ -88,7 +93,7 @@ export const FinancialDataForm = () => {
           initialValues={initialValues}
           validationSchema={validationSchema}
           onSubmit={async (values, { resetForm }) => {
-            await onSubmit(values);
+            await handleSubmit(values);
             resetForm();
           }}
         >
@@ -96,14 +101,22 @@ export const FinancialDataForm = () => {
             <Content>
               <Input>
                 <label htmlFor="annualIncome">Annual Income</label>
-                <Field name="annualIncome" type="number" />
-                <ErrorMessage name="annualIncome" render={renderError} />
+                <Field name="annualIncome" id="annualIncome" type="number" />
+                <ErrorMessage
+                  data-testid="annualIncomeError"
+                  name="annualIncome"
+                  component="p"
+                />
               </Input>
 
               <Input>
                 <label htmlFor="monthlyCosts">Monthly Costs</label>
-                <Field name="monthlyCosts" type="number" />
-                <ErrorMessage name="monthlyCosts" render={renderError} />
+                <Field name="monthlyCosts" id="monthlyCosts" type="number" />
+                <ErrorMessage
+                  data-testid="monthlyCostsError"
+                  name="monthlyCosts"
+                  component="p"
+                />
               </Input>
             </Content>
 
