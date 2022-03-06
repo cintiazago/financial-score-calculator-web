@@ -17,6 +17,7 @@ import {
   Content,
   Logo,
   CardHeader,
+  Container,
   TitleWrapper,
   CardTitle,
   CardSubtitle,
@@ -45,7 +46,7 @@ export function ScoreResult() {
     <>
       <PageHeader />
 
-      <Content>
+      <Container>
         <Title>
           <h1>
             Here's your <span>financial wellness score:</span>
@@ -53,24 +54,26 @@ export function ScoreResult() {
         </Title>
 
         <Card id="score-result-card">
-          <CardHeader>
-            <Logo src={"./src/assets/images/OriginIcon--circle.png"} />
-            <ProgressBar
-              bgColor={scoreValues.bgcolor}
-              showPercentage={false}
-              completed={scoreValues.progress}
-            />
-            <TitleWrapper>
-              <CardTitle>{scoreValues.cardTitle}</CardTitle>
-              <CardSubtitle>{scoreValues.cardSubtitle}</CardSubtitle>
-            </TitleWrapper>
-          </CardHeader>
+          <Content>
+            <CardHeader>
+              <Logo src={"./src/assets/images/OriginIcon--circle.png"} />
+              <ProgressBar
+                bgColor={scoreValues.bgcolor}
+                showPercentage={false}
+                completed={scoreValues.progress}
+              />
+              <TitleWrapper>
+                <CardTitle>{scoreValues.cardTitle}</CardTitle>
+                <CardSubtitle>{scoreValues.cardSubtitle}</CardSubtitle>
+              </TitleWrapper>
+            </CardHeader>
 
-          <ButtonContainer>
-            <Button onClick={handleReturn}>Return</Button>
-          </ButtonContainer>
+            <ButtonContainer>
+              <Button onClick={handleReturn}>Return</Button>
+            </ButtonContainer>
+          </Content>
         </Card>
-      </Content>
+      </Container>
 
       <PageFooter />
     </>

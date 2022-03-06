@@ -70,8 +70,6 @@ export const FinancialDataForm = () => {
     navigate("/result", { state: { score: score } });
   };
 
-  const renderError = (message: string) => <p>{message}</p>;
-
   return (
     <Container data-testid="financial-data-form">
       <Title>
@@ -97,8 +95,8 @@ export const FinancialDataForm = () => {
             resetForm();
           }}
         >
-          <Form>
-            <Content>
+          <Content>
+            <Form>
               <Input>
                 <label htmlFor="annualIncome">Annual Income</label>
                 <Field name="annualIncome" id="annualIncome" type="number" />
@@ -118,12 +116,12 @@ export const FinancialDataForm = () => {
                   component="p"
                 />
               </Input>
-            </Content>
 
-            <ButtonContainer>
-              <Button type="submit">Continue</Button>
-            </ButtonContainer>
-          </Form>
+              <ButtonContainer>
+                <Button type="submit">Continue</Button>
+              </ButtonContainer>
+            </Form>
+          </Content>
         </Formik>
       </Card>
     </Container>

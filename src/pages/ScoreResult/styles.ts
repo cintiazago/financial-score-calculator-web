@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Content = styled.div`
+export const Container = styled.div`
   margin: auto;
   margin-top: 124px;
   display: flex;
@@ -12,17 +12,28 @@ export const Content = styled.div`
   }
 `;
 
+export const Content = styled.div`
+  display: flex;
+  column-gap: 16px;
+  flex-direction: column;
+
+  @media screen and (max-width: 600px) {
+    row-gap: 16px;
+  }
+`;
+
 export const CardHeader = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
   text-align: center;
   row-gap: 24px;
-  width: 544px;
-  max-width: 100%;
+  max-width: 544px;
+  width: 100%;
 
   @media screen and (max-width: 600px) {
     flex-direction: column;
+    width: 100%;
   }
 `;
 
