@@ -89,6 +89,17 @@ export const Content = styled.div`
   }
 `;
 
+export const FieldsWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  column-gap: 16px;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+    row-gap: 16px;
+  }
+`;
+
 export const Input = styled.div`
   label {
     font-style: normal;

@@ -17,6 +17,7 @@ import {
   ButtonContainer,
   Button,
   Input,
+  FieldsWrapper,
 } from "./styles";
 
 const YEARLY_TAXES_PERCENTAGE = 8;
@@ -97,25 +98,27 @@ export const FinancialDataForm = () => {
         >
           <Content>
             <Form>
-              <Input>
-                <label htmlFor="annualIncome">Annual Income</label>
-                <Field name="annualIncome" id="annualIncome" type="number" />
-                <ErrorMessage
-                  data-testid="annualIncomeError"
-                  name="annualIncome"
-                  component="p"
-                />
-              </Input>
+              <FieldsWrapper>
+                <Input>
+                  <label htmlFor="annualIncome">Annual Income</label>
+                  <Field name="annualIncome" id="annualIncome" type="number" />
+                  <ErrorMessage
+                    data-testid="annualIncomeError"
+                    name="annualIncome"
+                    component="p"
+                  />
+                </Input>
 
-              <Input>
-                <label htmlFor="monthlyCosts">Monthly Costs</label>
-                <Field name="monthlyCosts" id="monthlyCosts" type="number" />
-                <ErrorMessage
-                  data-testid="monthlyCostsError"
-                  name="monthlyCosts"
-                  component="p"
-                />
-              </Input>
+                <Input>
+                  <label htmlFor="monthlyCosts">Monthly Costs</label>
+                  <Field name="monthlyCosts" id="monthlyCosts" type="number" />
+                  <ErrorMessage
+                    data-testid="monthlyCostsError"
+                    name="monthlyCosts"
+                    component="p"
+                  />
+                </Input>
+              </FieldsWrapper>
 
               <ButtonContainer>
                 <Button type="submit">Continue</Button>
