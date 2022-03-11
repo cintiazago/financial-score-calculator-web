@@ -1,4 +1,3 @@
-import React from "react";
 import { Container, Filler, Label } from "./styles";
 
 type ProgressBarProps = {
